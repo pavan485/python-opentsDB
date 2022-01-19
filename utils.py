@@ -2,7 +2,6 @@ import yaml
 import log
 import requests,json
 import dateutil.parser as dp
-from influxdb_client.client.write_api import SYNCHRONOUS
 creds = yaml.safe_load(open('./config/config_opents.yaml'))
 conf = yaml.safe_load(open('./config/config_catchpoint.yaml'))
 logger = log.get_logger(__name__,conf['log_file'],conf['log_level'])
@@ -63,7 +62,7 @@ class Utils():
     @staticmethod
     def write_data(data):
         logger.info("Pushing data to OpentsDB")
-        tsdb_url = '{0}:{1}/api/put?summary'.format(creds['server'],creds['port'])
+        tsdb_url = '{0}:{1}/api/put?summary'.format(creds['tsdb_host'],creds['tsdb_port'])
         try:
             r = requests.post(tsdb_url, json=data)
             return r.text
