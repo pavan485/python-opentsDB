@@ -37,7 +37,8 @@ class Application(object):
                                 final_list.extend(parsed_json)
                         logger.info(final_list)
                     if final_list is not None:
-                        utils.Utils.write_data(final_list)
+                        for data_points in range(0, len(final_list), 50):
+                            utils.Utils.write_data(data_points)
                     else:
                         logger.exception('No Data')
                 #time.sleep(900000)
