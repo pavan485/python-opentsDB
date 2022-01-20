@@ -36,10 +36,10 @@ class Application(object):
                             if parsed_json:
                                 final_list.extend(parsed_json)
                         logger.info(final_list)
-                    # if final_list is not None:
-                    #     utils.Utils.write_data(final_list)
-                    # else:
-                    #     logger.exception('No Data')
+                    if final_list is not None:
+                        utils.Utils.write_data(final_list)
+                    else:
+                        logger.exception('No Data')
                 #time.sleep(900000)
             except Exception as e:
                 logger.exception(str(e))
