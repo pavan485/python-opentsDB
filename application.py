@@ -34,10 +34,12 @@ class Application(object):
                         else:
                             if parsed_json:
                                 final_list.extend(parsed_json)
-                        #logger.info(final_list)
+                        logger.info(final_list)
                     if final_list is not None:
                         for data_points in self.batch(final_list, 50):
-                            utils.Utils.write_data(data_points)
+                            #logger.info(data_points)
+                            #utils.Utils.write_data(data_points)
+                            pass
                     else:
                         logger.exception('No Data')
                 #time.sleep(900000)
