@@ -50,8 +50,9 @@ class Utils():
             metric_values = value['synthetic_metrics']
             
             for i in range(0,len(metric_values),1):
-                values['metric'] = test_params[i]
-                values['value'] = metric_values[i]
+                if metric_values[i] is not None:
+                    values['metric'] = test_params[i]
+                    values['value'] = metric_values[i]
             final_list.append(values)
         return final_list
        
