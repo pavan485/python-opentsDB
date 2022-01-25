@@ -1,4 +1,3 @@
-import logger
 import yaml
 import request_handler
 import utils,log
@@ -35,10 +34,10 @@ class Application(object):
                         else:
                             if parsed_json:
                                 final_list.extend(parsed_json)
-                        logger.info(final_list)
+                        #logger.info(final_list)
                     if final_list is not None:
-                        for data_points in range(0, len(final_list), 50):
-                            utils.Utils.write_data(data_points)
+                        for i in range(0,len(final_list),50):
+                            utils.Utils.write_data(final_list[i])
                     else:
                         logger.exception('No Data')
                 #time.sleep(900000)
