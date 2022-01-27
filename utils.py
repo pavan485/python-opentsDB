@@ -13,15 +13,19 @@ class Utils():
         logger.info("Parsing data for OpentsDB")
         char_map = {'#':'numOf','%':'percent','(':'.',')':'',' ':''}
         chars = "#%() " 
-        
+        metric_values = []
+        items = []
+        test_metric_values = []
+        metric_values = []
+        solution = {}
+        lines = []
         synthetic_metrics = []
+        test_params = []
         if 'error' in structure:
             logger.error(structure['error'])
         if 'detail' not in structure:
             logger.error('No data available')
             return None    
-        test_params = []
-        final_list = [] #list of all jsons
         synthetic_metrics = structure['detail']['fields']['synthetic_metrics']
         
         for i in synthetic_metrics:
@@ -29,7 +33,9 @@ class Utils():
                 i['name'] = i['name'].replace(char,char_map[char])
             metrics = 'catchpoint.testdata.{0}'.format(i['name'])
             test_params.append(metrics)
-        
+
+
+
         for value in structure['detail']['items']:
             values = {} # json which contains tags fields time 
             tag = {
@@ -48,16 +54,34 @@ class Utils():
             values['timestamp'] = dp.parse(value['dimension']['name']).timestamp()
 
             metric_values = value['synthetic_metrics']
-            
-            for i in range(0,len(metric_values),1):
-                if metric_values[i] is not None:
-                    values['metric'] = test_params[i]
-                    values['value'] = metric_values[i]
-            final_list.append(values)
-        return final_list
-       
-                
+            metric_values.append(values)
+            test_metric_values.append(metric_values)
         
+        for test_metric_value in test_metric_values:
+            temp = {}
+            temp['fields'] = {}
+            for i in range(0,len(test_metric_value),1):
+                # if test_metric_value[i] is None:
+                #     continue
+                if type(test_metric_value[i]) is dict:
+                    for value in test_metric_value[i]:
+                        temp[value] = test_metric_value[i][value]
+                else:    
+                    temp['fields'][test_params[i]] = test_metric_value[i]                    
+
+            items.append(temp)   
+        solution['items'] = items
+    
+        for item in solution['items']:
+            for metric in item['fields']:
+                line = {
+                    'metric' : metric,
+                    'timestamp' : item['timestamp'],
+                    'value' : item['fields'][metric],
+                    'tags' : item['tags']
+                }
+                lines.append(line)
+        return lines  
         
 
     @staticmethod
