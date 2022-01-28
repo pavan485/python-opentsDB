@@ -61,8 +61,8 @@ class Utils():
             temp = {}
             temp['fields'] = {}
             for i in range(0,len(test_metric_value),1):
-                # if test_metric_value[i] is None:
-                #     continue
+                if test_metric_value[i] is None:
+                    continue
                 if type(test_metric_value[i]) is dict:
                     for value in test_metric_value[i]:
                         temp[value] = test_metric_value[i][value]
