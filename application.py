@@ -21,6 +21,7 @@ class Application(object):
                 for test_id_type in conf['test_ids'].values():
                     final_list = []
                     for test_id in self.batch(test_id_type, conf['batch_size']):
+                        print(test_id)
                         conf['test_id_params']=",".join(test_id)
                         data = self.__request_handler.fetch_data(conf)
                         expired = self.__request_handler.expired_token_check(data)
@@ -29,15 +30,16 @@ class Application(object):
                             self.__request_handler.authorize(conf)
                             data = self.__request_handler.fetch_data(conf) 
                         parsed_json = utils.Utils.parse_raw(data)
+                        logger.info(parsed_json)
                         if final_list is []:
                             final_list=parsed_json
                         else:
                             if parsed_json:
                                 final_list.extend(parsed_json)
-                        logger.info(final_list)
+                        
                     if final_list is not None:
                         for data_points in self.batch(final_list, 50):
-                            utils.Utils.write_data(data_points)
+                                utils.Utils.write_data(data_points)
                     else:
                         logger.exception('No Data')
                 #time.sleep(900000)
