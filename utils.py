@@ -81,16 +81,16 @@ class Utils():
                     'tags' : item['tags']
                 }
                 lines.append(line)
+        logger.info(lines)
         return lines  
         
 
     @staticmethod
     def write_data(data):
-        logger.info("Pushing data to OpentsDB")
         tsdb_url = '{0}:{1}/api/put?summary'.format(creds['tsdb_host'],creds['tsdb_port'])
         try:
             r = requests.post(tsdb_url, json=data)
-            return r.text
+            logger.info(r.status_code)
         except Exception as e:
             logger.exception(str(e))
             logger.exception('Error while writing data')
