@@ -37,9 +37,7 @@ class Application(object):
                         logger.info(final_list)
                     if final_list is not None:
                         for data_points in self.batch(final_list, 50):
-                            #logger.info(data_points)
-                            #utils.Utils.write_data(data_points)
-                            pass
+                            utils.Utils.write_data(data_points)
                     else:
                         logger.exception('No Data')
                 #time.sleep(900000)
