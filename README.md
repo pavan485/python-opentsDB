@@ -51,7 +51,7 @@ In the test_ids object of the 'config_catchpoint.yaml' file, enter the test IDs 
 
 ## File Structure
 
-    Python-Influx/
+    OpenTSDB-Python/
     ├── request_handler.py          ## Contains APIs related to authentication       
     ├── config
     | ├── config_catchpoint.yaml    ## Configuration file for Catchpoint 
