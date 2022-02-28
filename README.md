@@ -39,7 +39,7 @@ In the test_ids object of the 'config_catchpoint.yaml' file, enter the test IDs 
               
           }
 ---       
-3. In the "config_opents.js" file, enter your openTSDB hostname with http scheme and the port number.
+3. In the "config_opents.yaml" file, enter your openTSDB hostname with http scheme and the port number.
 
 ### How to run
 
