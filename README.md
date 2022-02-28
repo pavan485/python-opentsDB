@@ -49,6 +49,10 @@ In the test_ids object of the 'config_catchpoint.yaml' file, enter the test IDs 
 
 `*/15 * * * * cd /usr/local/bin/ && python /usr/local/bin/application.py > /usr/local/bin/logs/cronlog.log 2>&1`
 
+or 
+
+- In the /OpenTSDB-Python directory, run appliaction.py after uncommenting the while true: and time.sleep()
+
 ## File Structure
 
     OpenTSDB-Python/
